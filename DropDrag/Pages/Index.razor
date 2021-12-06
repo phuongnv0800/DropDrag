@@ -1,5 +1,52 @@
 ﻿@page "/"
+@using DropDrag.Data
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<div class="bg-success">You can accept or deny items.</div>
+
+<hr />
+
+<div class="bg-light">First Dropzone:</div>
+<Dropzone Items="MyFirstList" Class="p-2"
+>
+    <div style="border: 2px solid blue">
+        @context.Titel
+    </div>
+</Dropzone>
+<hr />
+
+<div class="bg-light">Second Dropzone: (only accepts items containing the word 'fun')</div>
+<Dropzone Items="MySecondList"  Class="p-2"
+>
+    <div style="border: 2px solid black">
+        @context.Titel
+    </div>
+</Dropzone>
+<hr />
+<div class="row">
+    <Dropzone Class="d-flex" Items="MyFirstList" ItemWrapperClass="@(item => "flex-item")">
+        <div style="border: 2px solid black;height: 20px; width:50px">
+            @context.Titel
+        </div>
+    </Dropzone>
+</div>
+@code {
+    private List<TodoItem> item = new List<TodoItem>(25);
+    private TodoItem lastdropped { get; set; }
+
+    public List<TodoItem> MyFirstList = new List<TodoItem>(8)
+    {
+        new TodoItem(){Titel = "Item 1 - boring"},
+        new TodoItem(){Titel = "Item 2 - angry"},
+        new TodoItem(){Titel = "Item 3 - fun"},
+        new TodoItem(){Titel = "Item 4 - more fun"},
+        new TodoItem(){Titel = "Item 5 - great"},
+        new TodoItem(){Titel = "Item 2 - angry"},
+        new TodoItem(){Titel = "Item 3 - fun"},
+        new TodoItem(){Titel = "Item 4 - more fun"}
+    };
+    public List<TodoItem> MySecondList = new List<TodoItem>()
+    {
+         new TodoItem(){Titel = "Item 6 - the real fun"},
+    };
+}
