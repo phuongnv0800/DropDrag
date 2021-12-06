@@ -1,6 +1,13 @@
 ﻿@page "/"
 @using DropDrag.Data
 
+<style>
+    .cells{
+        height: 30px;
+        width: 60px;
+        border: 2px solid #000;
+    }
+</style>
 
 <div class="bg-success">You can accept or deny items.</div>
 
@@ -15,25 +22,53 @@
 </Dropzone>
 <hr />
 
-<div class="bg-light">Second Dropzone: (only accepts items containing the word 'fun')</div>
-<Dropzone Items="MySecondList"  Class="p-2"
->
+<div class="bg-light">Secondcolor(only accepts items containing the word 'fun')</div>
+<Dropzone Items="MySecondList"  Class="p-2"  InstantReplace="true">
     <div style="border: 2px solid black">
-        @context.Titel
+        @context
     </div>
 </Dropzone>
-<hr />
+
+<div class="bg-light">Test for</div>
+<div>
+    @for (int i = 0; i < 5; i++)
+    {
+        <div class="d-flex">
+        @for (int j = 0; j < 5; j++)
+        {
+            <Dropzone Class="cells" Items="matrix[5 * i + j]" MaxItems="1">
+                <div style="border: 2px solid #fff;height: 30px; width:60px;background-color: #000;">
+                    @context
+                </div>
+            </Dropzone>
+        }
+        </div>
+    }
+</div>
+
+@*<hr />
 <div class="row">
-    <Dropzone Class="d-flex" Items="MyFirstList" ItemWrapperClass="@(item => "flex-item")">
+    <Dropzone Class="d-flex" Items="item" ItemWrapperClass="@(item => "flex-item")">
         <div style="border: 2px solid black;height: 20px; width:50px">
             @context.Titel
         </div>
     </Dropzone>
-</div>
+</div>*@
 @code {
-    private List<TodoItem> item = new List<TodoItem>(25);
-    private TodoItem lastdropped { get; set; }
+    private List<TodoItem>[] matrix = new List<TodoItem>[25];
 
+    protected override void OnInitialized()
+    {
+        for(int i = 0; i< 5; i++)
+        {
+            for(int j = 0; j< 5; j++)
+            {
+                matrix[i * 5 + j] = new List<TodoItem>(1);
+            }
+        }
+    }
+    private List<TodoItem> item = new List<TodoItem>(5);
+    private TodoItem lastdropped { get; set; }
     public List<TodoItem> MyFirstList = new List<TodoItem>(8)
     {
         new TodoItem(){Titel = "Item 1 - boring"},
@@ -45,8 +80,14 @@
         new TodoItem(){Titel = "Item 3 - fun"},
         new TodoItem(){Titel = "Item 4 - more fun"}
     };
-    public List<TodoItem> MySecondList = new List<TodoItem>()
+    public List<TodoItem> MySecondList = new List<TodoItem>(6)
     {
-         new TodoItem(){Titel = "Item 6 - the real fun"},
+         new TodoItem(){},
+         new TodoItem(){},
+         new TodoItem(){},
+         new TodoItem(){},
+         new TodoItem(){},
+         new TodoItem(){},
+
     };
 }
