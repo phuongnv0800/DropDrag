@@ -48,3 +48,33 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+
+.component-block{
+    width: 100px;
+    height: 38px;
+    background-color: #fff;
+    transition: all 0.25s ease;
+    position: relative;
+}
+.component-block span{
+    width: 5px;
+    background-color: #26b050;
+    margin-right: 2px;
+}
+
+    .component-block:hover {
+        background-color: #f7f8e9
+    }
+    .component-block:hover span{
+        background-color: red;
+    }
+.p-12{
+    font-size: 12px;
+    margin: 0;
+}
+.title {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+}

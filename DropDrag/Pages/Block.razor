@@ -1,0 +1,34 @@
+﻿@using DropDrag.Data
+
+<div>
+    @for (int row = 0; row < 4; row++)
+    {
+        <div class="d-flex">
+            @for (int col = 0; col < 8; col++)
+            {
+                <Dropzone Class="cells" Items="matrix[8 * row + col]" MaxItems="1">
+                    
+                        <Component item="@context"></Component>
+
+                </Dropzone>
+            }
+        </div>
+    }
+</div>
+
+
+
+@code {
+    private List<TodoItem>[] matrix = new List<TodoItem>[32];
+
+    protected override void OnInitialized()
+    {
+
+        for (int i = 0; i < 32; i++)
+        {
+            {
+                matrix[i] = new List<TodoItem>(1);
+            }
+        }
+    }
+}
