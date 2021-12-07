@@ -1,58 +1,10 @@
 ﻿@page "/"
-@using DropDrag.Data
-
-<style>
-    .cells {
-        height: 40px;
-        width: 150px;
-        border: 0.5px dotted #000;
-    }
-</style>
 
 
 
-<hr />
+<button @onclick="@(() => Modal.Show<Modal>("Modal"))" class="btn btn-primary">View Modal</button>
 
-
-<div class="row">
-    <div class="col-3">
-        <Dropzone Items="MyFirstList" >
-            <Component item="@context"></Component>
-        </Dropzone>
-    </div>
-
-    <div class="col-9">
-
-        @for (var i = 0; i < 4; i++)
-        {
-            <Block></Block>
-            <br />
-        }
-    </div>
-</div>
-
-@*<hr />
-    <div class="row">
-        <Dropzone Class="d-flex" Items="item" ItemWrapperClass="@(item => "flex-item")">
-            <div style="border: 2px solid black;height: 20px; width:50px">
-                @context.Titel
-            </div>
-        </Dropzone>
-    </div>*@
 @code {
+    [CascadingParameter] public IModalService Modal { get; set; }
     
-    private List<TodoItem> item = new List<TodoItem>(5);
-    private TodoItem lastdropped { get; set; }
-    public List<TodoItem> MyFirstList = new List<TodoItem>(8)
-{
-        new TodoItem(){Title = "Item 1", Description="content"},
-        new TodoItem(){Title = "Item 2", Description="content"},
-        new TodoItem(){Title = "Item 3", Description="content"},
-        new TodoItem(){Title = "Item 4", Description="content"},
-        new TodoItem(){Title = "Item 5", Description="content" },
-        new TodoItem(){Title = "Item 2 ", Description="content"},
-        new TodoItem(){Title = "Item 3 ",Description="content"},
-        new TodoItem(){Title = "Item 4 ",Description="content"}
-    };
-
 }

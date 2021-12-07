@@ -1,12 +1,12 @@
 ﻿@using DropDrag.Data
 
-<div>
-    @for (int row = 0; row < 4; row++)
+<div >
+    @for (int row = 0; row < Rows; row++)
     {
-        <div class="d-flex">
-            @for (int col = 0; col < 8; col++)
+        <div class="d-flex ">
+            @for (int col = 0; col < Cols; col++)
             {
-                <Dropzone Class="cells" Items="matrix[8 * row + col]" MaxItems="1">
+                <Dropzone Class="cells" Items="matrix[Cols * row + col]" MaxItems="1">
                     
                         <Component item="@context"></Component>
 
@@ -19,15 +19,19 @@
 
 
 @code {
-    private List<TodoItem>[] matrix = new List<TodoItem>[32];
+    [Parameter] public int Rows { get; set; }
+    [Parameter] public int Cols { get; set; }
+    
+    private List<List<TodoItem>> matrix = new List<List<TodoItem>>();
+
 
     protected override void OnInitialized()
     {
 
-        for (int i = 0; i < 32; i++)
+        for (int i = 0; i < Rows*Cols; i++)
         {
             {
-                matrix[i] = new List<TodoItem>(1);
+                matrix.Add(new List<TodoItem>(1));
             }
         }
     }

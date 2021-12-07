@@ -30,6 +30,8 @@ a, .btn-link {
     color: red;
 }
 
+
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -49,11 +51,37 @@ a, .btn-link {
         top: 0.5rem;
     }
 
+.scroll{
+    overflow: scroll;
+}
+.modal-container{
+    width: 1000px;
+    
+}
+.card-left{
+    height: 500px;
 
-.component-block{
-    width: 100px;
+}
+.card-right{
+    height:500px;
+}
+.cells {
+    height: 40px;
+    width: 150px;
+    border: 0.5px dotted #000;
+}
+.component-block-left {
+    transition: all 0.25s ease;
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+}
+
+.component-block {
+    width: 80px;
     height: 38px;
     background-color: #fff;
+    overflow: hidden;
     transition: all 0.25s ease;
     position: relative;
 }
@@ -63,12 +91,15 @@ a, .btn-link {
     margin-right: 2px;
 }
 
-    .component-block:hover {
+    .component-block-left:hover  {
         background-color: #f7f8e9
     }
-    .component-block:hover span{
-        background-color: red;
+    .component-block-left:hover .component-block{
+        background-color: #f7f8e9
     }
+        .component-block-left:hover .component-block span {
+            background-color: red;
+        }
 .p-12{
     font-size: 12px;
     margin: 0;
