@@ -1,0 +1,17 @@
+﻿@using DropDrag.Data
+
+<div class="d-flex flex-stack ">
+    <div class="d-flex align-items-center ">
+        
+        <div class="ms-5">
+            <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">@item.Title</a>
+            <div class="fw-bold text-muted">@item.Description</div>
+        </div>
+
+    </div>
+
+</div>
+
+@code {
+    [Parameter] public TodoItem item { get; set; }
+}
