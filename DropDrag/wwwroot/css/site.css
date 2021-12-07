@@ -51,8 +51,9 @@ a, .btn-link {
         top: 0.5rem;
     }
 
-.scroll{
-    overflow: scroll;
+.scroll {
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .modal-container{
     width: 1000px;
