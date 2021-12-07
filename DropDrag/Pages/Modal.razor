@@ -1,63 +1,86 @@
 ﻿@using DropDrag.Data
 
-<div class="modal-container ">
-    <div class="row py-3">
-        <div class="col-3 ">
-            <Dropzone Items="MyFirstList" Class="card-left scroll">
-                <div class="component-block-left">
-                    <Component item="@context"></Component>
+<div class="modal fade show" id="kt_modal_new_target" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+	<!--begin::Modal dialog-->
+	<div class="modal-dialog modal-dialog-centered mw-100 mx-10">
+		<!--begin::Modal content-->
+		<div class="modal-content rounded h-100">
+			<!--begin::Modal header-->
+			<div class="modal-header py-1 border-0 justify-content-between">
+                <div>
+                    <h4 class="fw-bold">TAN CANG 28</h4>
                 </div>
-            </Dropzone>
-        </div>
-
-        <div class="col-9  card-right">
-
-            @for (var i = 0; i < Blocks; i++)
-            {
-                <Block Rows="@Rows" Cols="@Cols"></Block>
-                <br />
-            }
-        </div>
-    </div>
-    <button @onclick="SubmitForm" class="btn btn-primary">Submit</button>
-    <button @onclick="Cancel" class="btn btn-secondary">Cancel</button>
+				<!--begin::Close-->
+				<div class="btn btn-sm btn-icon btn-active-color-primary" @onclick="Cancel" data-bs-dismiss="modal">
+					<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+					<span class="svg-icon svg-icon-1">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black"></rect>
+							<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black"></rect>
+						</svg>
+					</span>
+					<!--end::Svg Icon-->
+				</div>
+				<!--end::Close-->
+			</div>
+			<!--begin::Modal header-->
+			<!--begin::Modal body-->
+			<div class="modal-body px-4 px-lg-10 pt-0 pb-2">
+				<div class="row py-3">
+                    <div class="col-2 ">
+                        <Dropzone Items="MyFirstList" Class="scroll-y h-600px">
+                            <div class="component-block-left">
+                                <Component item="@context"></Component>
+                            </div>
+                        </Dropzone>
+                    </div>
+                    <div class="col-10">
+                        <div class="h-600px">
+                            @for (var i = 0; i < Blocks; i++)
+                            {
+                                <Block Rows="@Rows" Cols="@Cols"></Block>
+                                <br />
+                            }
+                        </div>
+                        
+                    </div>
+                </div>
+				<!--begin::Actions-->
+				<div class="">
+					<button type="submit" @onclick="Cancel" id="kt_modal_new_target_submit" class="btn btn-primary">
+						<span class="indicator-label">Submit</span>
+					</button>
+					<button type="reset" @onclick="SubmitForm" id="kt_modal_new_target_cancel" class="btn btn-light me-3">Cancel</button>
+				</div>
+			</div>
+			<!--end::Modal body-->
+		</div>
+		<!--end::Modal content-->
+	</div>
+	<!--end::Modal dialog-->
 </div>
 
-
 @code {
-    [CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
+    [CascadingParameter]
+    BlazoredModalInstance ModalInstance { get; set; }
+
     private List<TodoItem> item = new List<TodoItem>(5);
+
     private TodoItem lastdropped { get; set; }
+
     [Parameter] public int Rows { get; set; } = 4;
     [Parameter] public int Cols { get; set; } = 8;
-    [Parameter] public int Blocks { get; set; } = 4;
-    public List<TodoItem> MyFirstList = new List<TodoItem>(16)
-{
-        new TodoItem(){Title = "Item 1", Description="mô tả"},
-        new TodoItem(){Title = "Item 2", Description="mô tả"},
-        new TodoItem(){Title = "Item 3", Description="mô tả"},
-        new TodoItem(){Title = "Item 4", Description="mô tả"},
-        new TodoItem(){Title = "Item 5", Description="mô tả" },
-        new TodoItem(){Title = "Item 6 ", Description="mô tả"},
-        new TodoItem(){Title = "Item 7 ",Description="mô tả"},
-        new TodoItem(){Title = "Item 8 ",Description="mô tả"},
-        new TodoItem(){Title = "Item 9 ",Description="mô tả"},
-        new TodoItem(){Title = "Item 10 ",Description="mô tả"},
-        new TodoItem(){Title = "Item 11",Description="mô tả"},
-        new TodoItem(){Title = "Item 12",Description="mô tả"},
-        new TodoItem(){Title = "Item 13",Description="mô tả"},
-        new TodoItem(){Title = "Item 14",Description="mô tả"},
-        new TodoItem(){Title = "Item 15",Description="mô tả"},
-        new TodoItem(){Title = "Item 16",Description="mô tả"},
-        new TodoItem(){Title = "Item 17 ",Description="mô tả"},
-        new TodoItem(){Title = "Item 18 ",Description="mô tả"},
-        new TodoItem(){Title = "Item 19",Description="mô tả"},
-        new TodoItem(){Title = "Item 20",Description="mô tả"},
-        new TodoItem(){Title = "Item 21",Description="mô tả"},
-        new TodoItem(){Title = "Item 22",Description="mô tả"},
-        new TodoItem(){Title = "Item 23",Description="mô tả"},
-        new TodoItem(){Title = "Item 24",Description="mô tả"}
-    };
+    [Parameter] public int Blocks { get; set; } = 6;
+    public List<TodoItem> MyFirstList = new List<TodoItem>();
+    protected override void OnInitialized()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            {
+                MyFirstList.Add(new TodoItem() {Title = "Container " + (i + 1).ToString(), Description = "Mô tả" });
+            }
+        }
+    }
     void SubmitForm()
     {
         //ModalInstance.CloseAsync();

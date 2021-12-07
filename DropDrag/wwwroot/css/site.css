@@ -70,11 +70,11 @@ a, .btn-link {
 .card-right::-webkit-scrollbar {
     display: none;
 }
-.cells {
+/*.cells {
     height: 40px;
     width: 150px;
     padding: 0;
     margin: 1px;
     border: 0.5px dotted #000;
-}
+}*/
 
