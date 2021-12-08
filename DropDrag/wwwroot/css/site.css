@@ -60,15 +60,19 @@ a, .btn-link {
     
 }
 .card-left{
-    height: 500px;
+    height: auto;
 
 }
 .card-right{
-    height:500px;
+    width: auto;
     overflow: scroll;
 }
 .card-right::-webkit-scrollbar {
     display: none;
+}
+.cell{
+    width: 12.5% !important;
+    height: 3% !important;
 }
 /*.cells {
     height: 40px;

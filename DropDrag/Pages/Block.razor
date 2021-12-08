@@ -13,7 +13,7 @@
         <div class="d-flex ">
             @for (int col = 0; col < Cols; col++)
             {
-                <Dropzone Class="cells h-20px w-150px p-0 text-center" Items="matrix[Cols * row + col]" MaxItems="1">
+                <Dropzone Class="cells cell h-20px w-100 p-0 text-center" Items="matrix[Cols * row + col]" MaxItems="1">
                         <Cell item="@context"></Cell>
                 </Dropzone>
             }
