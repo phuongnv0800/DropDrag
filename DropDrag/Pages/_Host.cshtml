@@ -44,9 +44,10 @@
     <script src="assets/js/custom/widgets.js"></script>
     <script> 
         window.getWindowDimensions = function () {
+            elmnt = document.getElementById("sizeModal");
             return {
-                width: window.innerWidth,
-                height: window.innerHeight
+                width: elmnt.offsetWidth,
+                height: elmnt.offsetHeight
             };
         }; 
     </script> 

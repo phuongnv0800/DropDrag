@@ -2,9 +2,18 @@
 
 
 
-<button @onclick="@(() => Modal.Show<Modal>("Modal"))" class="btn btn-primary">View Modal</button>
+<button @onclick="@ShowModal" class="btn btn-primary">View Modal</button>
 
 @code {
     [CascadingParameter] public IModalService Modal { get; set; }
+
+    private async Task ShowModal()
+    {
+        var moviesModal = Modal.Show<DropDrag.Pages.Modal>("Show");
+        var result = await moviesModal.Result;
+
+        if (!result.Cancelled)
+            Console.WriteLine("Huy -->");
+    }
     
 }
