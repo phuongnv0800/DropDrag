@@ -1,44 +1,76 @@
 ﻿@using DropDrag.Data
 
 <style>
+    .box-size{
+         box-sizing: border-box;
+    }
     .cells {
-        border: 0.5px dotted #000;
-        height: @(Height / Rows)px;
+        border: 0.1px dotted #000;
+        height: @((Height / Rows).ToString()+ "px");
+    }
+    .category1 {
+        width: @(Width.ToString()+ "px");
+        /*background-color: #efd;*/
+    }
+    .category2 {
+        width: @((Width + Width).ToString()+ "px");
     }
 </style>
 
-<div >
-    @for (int row = 0; row < Rows; row++)
-    {
-        <div class="d-flex ">
-            @for (int col = 0; col < Cols; col++)
+@for (int row = 0; row < Rows; row++)
+{
+    <div class="d-flex">
+        @for (int col = 0; col < matrix[row].Count; col++)
+        {
+            @if(matrix[row][col].Category == 1)
             {
-                <Dropzone Class="cells w-100 p-0 text-center" Items="matrix[Cols * row + col]" MaxItems="1">
+                <div class="">
+                    <Dropzone Class="cells box-size category1 text-center" Items="matrix[row][col].TodoItemList" MaxItems="1">
                         <Cell item="@context"></Cell>
-                </Dropzone>
+                    </Dropzone>
+                </div>
+                    
             }
-        </div>
-    }
-</div>
-
-
-
+            else{
+                <div class="">
+                    <Dropzone Class="cells box-size category2 text-center" Items="matrix[row][col].TodoItemList" MaxItems="1">
+                        <Cell item="@context"></Cell>
+                    </Dropzone>
+                </div>
+            }
+        }
+    </div>
+}
 @code {
     [Parameter] public int Rows { get; set; }
     [Parameter] public int Cols { get; set; }
     [Parameter] public double Height { get; set; }
+    [Parameter] public double Width { get; set; }
 
-    private List<List<TodoItem>> matrix = new List<List<TodoItem>>();
-
-
+    private List<List<TodoItems>> matrix = new List<List<TodoItems>>();
     protected override void OnInitialized()
     {
-
-        for (int i = 0; i < Rows*Cols; i++)
+        Random r = new();
+        for (int i = 0; i < Rows; i++)
         {
+            var colListTodo = new List<TodoItems>();
+            for (int j = 0; j < Cols; j++)
             {
-                matrix.Add(new List<TodoItem>(1));
+                if(r.Next(0, 10) > 5 && j != (Cols - 1) && j != (Cols - 2))
+                {
+                    colListTodo.Add(new TodoItems()
+                    {
+                        Category = 2
+                    });
+                    ++j;
+                }
+                else
+                    colListTodo.Add(new TodoItems()
+                    {
+                        Category = 1
+                    });
             }
+            matrix.Add(colListTodo);
         }
     }
 }
