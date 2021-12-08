@@ -1,8 +1,9 @@
 ﻿@using DropDrag.Data
 
+@inject IJSRuntime JsRuntime
 <div class="modal fade show" id="kt_modal_new_target" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
 	<!--begin::Modal dialog-->
-	<div class="modal-dialog modal-dialog-centered mw-100 mx-10">
+	<div class="modal-dialog modal-dialog-centered mw-100 mx-10" style="height: 90% !important">
 		<!--begin::Modal content-->
 		<div class="modal-content rounded h-100">
 			<!--begin::Modal header-->
@@ -25,35 +26,38 @@
 			</div>
 			<!--begin::Modal header-->
 			<!--begin::Modal body-->
-			<div class="modal-body px-4 px-lg-10 pt-0 pb-2">
+			<div class="modal-body px-4 px-lg-10 pt-0 pb-0">
 				<div class="row py-3">
                     <div class="col-2 ">
-                        <Dropzone Items="MyFirstList" Class="scroll-y h-600px">
-                            <div class="component-block-left">
-                                <Component item="@context"></Component>
-                            </div>
-                        </Dropzone>
+                        <div class="scroll-y " style="height: @(Height*0.78)px">
+                            <Dropzone Items="MyFirstList" Class="">
+                                <div class="component-block-left">
+                                    <Component item="@context"></Component>
+                                </div>
+                            </Dropzone>
+                        </div>
                     </div>
                     <div class="col-10">
-                        <div class="h-600px card-right">
+                        <div class="">
                             @for (var i = 0; i < Blocks; i++)
                             {
-                                <Block Rows="@Rows" Cols="@Cols"></Block>
-                                <br />
+                                <Block Rows="@Rows" Cols="@Cols" Height="@(Height*0.78/Blocks - 13)"></Block>
+                                <div class="py-2"></div>
                             }
                         </div>
                         
                     </div>
                 </div>
-				<!--begin::Actions-->
-				<div class="">
-					<button type="submit" @onclick="Cancel" id="kt_modal_new_target_submit" class="btn btn-primary">
-						<span class="indicator-label">Submit</span>
-					</button>
-					<button type="reset" @onclick="SubmitForm" id="kt_modal_new_target_cancel" class="btn btn-light me-3">Cancel</button>
-				</div>
 			</div>
 			<!--end::Modal body-->
+            
+			<!--begin::Actions-->
+			<div class="d-flex align-items-center ps-5">
+				<button type="submit" @onclick="Cancel" id="kt_modal_new_target_submit" class="btn btn-primary">
+					<span class="indicator-label">Submit</span>
+				</button>
+				<button type="reset" @onclick="SubmitForm" id="kt_modal_new_target_cancel" class="btn btn-light me-3">Cancel</button>
+			</div>
 		</div>
 		<!--end::Modal content-->
 	</div>
@@ -72,7 +76,11 @@
     [Parameter] public int Cols { get; set; } = 8;
     [Parameter] public int Blocks { get; set; } = 6;
     public List<TodoItem> MyFirstList = new List<TodoItem>();
-    protected override void OnInitialized()
+
+    public int Height { get; set; }
+    public int Width { get; set; }
+
+    protected override async Task OnInitializedAsync()
     {
         for (int i = 0; i < 100; i++)
         {
@@ -80,6 +88,14 @@
                 MyFirstList.Add(new TodoItem() {Title = "Container " + (i + 1).ToString(), Description = "Mô tả" });
             }
         }
+        var dimension = await JsRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
+        Height = dimension.Height;
+        Width = dimension.Width;
+    }
+    public class WindowDimension
+    {
+        public int Width { get; set; }
+        public int Height { get; set; }
     }
     void SubmitForm()
     {

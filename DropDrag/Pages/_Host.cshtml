@@ -42,5 +42,13 @@
     <!--end::Global Javascript Bundle-->
     <!--begin::Page Custom Javascript(used by this page)-->
     <script src="assets/js/custom/widgets.js"></script>
+    <script> 
+        window.getWindowDimensions = function () {
+            return {
+                width: window.innerWidth,
+                height: window.innerHeight
+            };
+        }; 
+    </script> 
 </body>
 </html>

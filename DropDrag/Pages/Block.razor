@@ -1,10 +1,10 @@
 ﻿@using DropDrag.Data
 
 <style>
-
-.cells {
-    border: 0.5px dotted #000;
-}
+    .cells {
+        border: 0.5px dotted #000;
+        height: @(Height / Rows)px;
+    }
 </style>
 
 <div >
@@ -13,7 +13,7 @@
         <div class="d-flex ">
             @for (int col = 0; col < Cols; col++)
             {
-                <Dropzone Class="cells cell h-20px w-100 p-0 text-center" Items="matrix[Cols * row + col]" MaxItems="1">
+                <Dropzone Class="cells w-100 p-0 text-center" Items="matrix[Cols * row + col]" MaxItems="1">
                         <Cell item="@context"></Cell>
                 </Dropzone>
             }
@@ -26,7 +26,8 @@
 @code {
     [Parameter] public int Rows { get; set; }
     [Parameter] public int Cols { get; set; }
-    
+    [Parameter] public double Height { get; set; }
+
     private List<List<TodoItem>> matrix = new List<List<TodoItem>>();
 
 
