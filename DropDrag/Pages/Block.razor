@@ -5,42 +5,59 @@
          box-sizing: border-box;
     }
     .cells {
-        border: 0.1px dotted #000;
-        height: @((Height / Rows).ToString()+ "px");
+        padding: 1px;
+        height: @(Math.Round(Height / Rows).ToString())px;
+    }
+    .cell-div {
+
+        height: 98%;
+        width: 100%;
+        box-shadow:  0 0 1.5px 1.5px #ccc inset;
+        border: 0;
     }
     .category1 {
-        width: @(Width.ToString()+ "px");
+        width: @(Math.Round(Width).ToString())px;
+
         /*background-color: #efd;*/
     }
     .category2 {
-        width: @((Width + Width).ToString()+ "px");
+        width: @(Math.Round(Width + Width).ToString())px;
+
     }
 </style>
+
+
+
 
 @for (int row = 0; row < Rows; row++)
 {
     <div class="d-flex">
+
         @for (int col = 0; col < matrix[row].Count; col++)
         {
-            @if(matrix[row][col].Category == 1)
+            @if (matrix[row][col].Category == 1)
             {
-                <div class="">
-                    <Dropzone Class="cells box-size category1 text-center" Items="matrix[row][col].TodoItemList" MaxItems="1">
+                <div class="cells category1 d-flex justify-content-center align-items-center">
+                    <Dropzone Class="cell-div  box-size  text-center" Items="matrix[row][col].TodoItemList" MaxItems="1">
                         <Cell item="@context"></Cell>
                     </Dropzone>
                 </div>
-                    
+
             }
-            else{
-                <div class="">
-                    <Dropzone Class="cells box-size category2 text-center" Items="matrix[row][col].TodoItemList" MaxItems="1">
+            else
+            {
+                <div class="cells category2 d-flex justify-content-center align-items-center">
+                    <Dropzone Class="cell-div  box-size  text-center" Items="matrix[row][col].TodoItemList" MaxItems="1">
                         <Cell item="@context"></Cell>
                     </Dropzone>
                 </div>
             }
         }
+
     </div>
 }
+
+
 @code {
     [Parameter] public int Rows { get; set; }
     [Parameter] public int Cols { get; set; }
@@ -56,7 +73,7 @@
             var colListTodo = new List<TodoItems>();
             for (int j = 0; j < Cols; j++)
             {
-                if(r.Next(0, 10) > 5 && j != (Cols - 1) && j != (Cols - 2))
+                if (r.Next(0, 10) > 5 && j != (Cols - 1) && j != (Cols - 2))
                 {
                     colListTodo.Add(new TodoItems()
                     {

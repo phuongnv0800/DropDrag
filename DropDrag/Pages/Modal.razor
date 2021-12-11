@@ -2,9 +2,9 @@
 
 @inject IJSRuntime JsRuntime
 <div class="modal fade show" id="kt_modal_new_target" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
-	<div class="modal-dialog modal-dialog-centered mw-100 mx-10" style="height: 90% !important">
+	<div class="modal-fullscreen modal-dialog modal-dialog-centered mw-100  " style="height: 100% !important;">
 		<div class="modal-content rounded h-100" id="sizeModal">
-			<div class="modal-header border-0 justify-content-between" style="height: @(Height*0.07)px">
+			<div class="modal-header border-0 justify-content-between" style="height: @(Math.Round(Height*0.07).ToString())px">
                 <div>
                     <h4 class="fw-bold">TAN CANG 28</h4>
                 </div>
@@ -24,7 +24,7 @@
 			<div class="modal-body px-10 pt-0 pb-0">
 				<div class="row">
                     <div class="col-2">
-                        <div class="scroll-y " style="height: @(Height*0.86)px">
+                        <div class="scroll-y " style="height: @(Math.Round(Height*0.86).ToString())px">
                             <Dropzone Items="MyFirstList" Class="">
                                 <div class="component-block-left">
                                     <Component item="@context"></Component>
@@ -32,12 +32,12 @@
                             </Dropzone>
                         </div>
                     </div>
-                    <div class="col-10">
+                    <div class="col-10" >
                         <div class="" id="widthBlock">
                             @for (var i = 0; i < Blocks; i++)
                             {
                                 @*0.86 là 86% chiều cao của modal, 13 là 13 px của py-2(khoảng cách của mỗi block) *@
-                                <Block Rows="@Rows" Cols="@Cols" Height="@((Height*0.86)/Blocks - 13)" Width="@(WidthBlock)"></Block>
+                                <Block Rows="@Rows" Cols="@Cols" Height="@(Math.Round(Height*0.86)/Blocks - 13)" Width="@WidthBlock"></Block>
                                 <div class="py-2"></div>
                             }
                         </div>
@@ -45,7 +45,7 @@
                     </div>
                 </div>
 			</div>
-			<div class="d-flex align-items-center ps-5 mb-1" style="height: @(Height*0.07)px">
+			<div class="d-flex align-items-center ps-5 mb-1" style="height: @(Math.Round(Height*0.07).ToString())px">
 				<button type="submit" @onclick="Cancel" id="kt_modal_new_target_submit" class="btn btn-sm btn-primary me-3">
 					<span class="indicator-label">Submit</span>
 				</button>
@@ -71,7 +71,7 @@
     protected override async Task OnInitializedAsync()
     {
         for (int i = 0; i < 100; i++)
-            MyFirstList.Add(new TodoItem() {Title = "Container " + (i + 1).ToString(), Description = "Mô tả" });     
+            MyFirstList.Add(new TodoItem() {Title = "Container " + (i + 1).ToString(), Description = "Mô tả" });
     }
 
     public class WindowDimension
@@ -80,20 +80,19 @@
         public int Height { get; set; }
     }
     public int Height { get; set; }
-    
+
+
     public int WidthBlock { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
             var dimension = await JsRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
             Height = dimension.Height;
+
             var blockDimension = await JsRuntime.InvokeAsync<WindowDimension>("getBlockDimensions");
             WidthBlock = blockDimension.Width/Cols;
             Console.WriteLine(WidthBlock);
             StateHasChanged();
-        }
     }
     void SubmitForm() => ModalInstance.Close(ModalResult.Ok($"Form was submitted successfully."));
 
