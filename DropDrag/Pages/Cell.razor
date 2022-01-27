@@ -6,14 +6,21 @@
 <div class="d-flex flex-stack ">
     <div class="d-flex align-items-center w-100">
         
-        <div class=" w-100 ">
-            <span class="fs-5 fw-bolder text-gray-500 text-hover-primary mb-2">@item.Title</span>
+        @*<div class=" w-100 ">*@
+            <span class="fs-5 fw-bolder text-gray-500 text-hover-primary mb-2">
+                @BlockId @RowId @ColId
+            </span>
+            
             @*<div class="fw-bold text-muted">@item.Description</div>*@
-        </div>
+            
+        @*</div>*@
 
     </div>
 </div>
 
 @code {
     [Parameter] public TodoItem item { get; set; }
+    [Parameter] public int BlockId { get; set; }
+    [Parameter] public int RowId { get; set; }
+    [Parameter] public int ColId { get; set; }
 }

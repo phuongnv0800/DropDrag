@@ -1,5 +1,12 @@
 ﻿@using DropDrag.Data
 
+<style>
+    .T-box{
+        height: @((Math.Round((Height*0.86)/Blocks) - 13).ToString())px;
+        width: auto;
+    }
+</style>
+
 @inject IJSRuntime JsRuntime
 <div class="modal fade show" id="kt_modal_new_target" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
 	<div class="modal-fullscreen modal-dialog modal-dialog-centered mw-100  " style="height: 100% !important;">
@@ -32,12 +39,34 @@
                             </Dropzone>
                         </div>
                     </div>
-                    <div class="col-10" >
+                    <div class = "col-1 d-flex">
+                        <div style="width: 40%">
+                            @for (var i = 0; i < Blocks; i++)
+                            {
+                                    <div class="d-flex align-items-center T-box " style="background-color: blue">
+                                        <p style="font-size: 16px">T0 @i</p>
+                                    </div>
+                                    <div class="py-2"></div>
+                            }
+                        </div>
+                        <div style="width: 60%" class="text-end">
+                            @for(var i = 0; i < Blocks; i++)
+                            {
+                                for(var j = 0 ; j < Rows; j++)
+                                {
+                                    <h6 style="font-size: 16px">@i@j</h6>
+                                }
+                                <div class="py-2"></div>
+                            }
+                            
+                        </div>
+                    </div>
+                    <div class="col-9" >
                         <div class="" id="widthBlock">
                             @for (var i = 0; i < Blocks; i++)
                             {
                                 @*0.86 là 86% chiều cao của modal, 13 là 13 px của py-2(khoảng cách của mỗi block) *@
-                                <Block Rows="@Rows" Cols="@Cols" Height="@(Math.Round(Height*0.86)/Blocks - 13)" Width="@WidthBlock"></Block>
+                                <Block Rows="@Rows" Cols="@Cols" Height="@(Math.Round(Height*0.86)/Blocks - 13)" Width="@WidthBlock" BlockId="@i"></Block>
                                 <div class="py-2"></div>
                             }
                         </div>
