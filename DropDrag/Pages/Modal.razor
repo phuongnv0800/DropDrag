@@ -30,7 +30,7 @@
 			</div>
 			<div class="modal-body px-10 pt-0 pb-0">
 				<div class="row">
-                    <div class="col-2">
+                    <div class="col-1">
                         <div class="scroll-y " style="height: @(Math.Round(Height*0.86).ToString())px">
                             <Dropzone Items="MyFirstList" Class="">
                                 <div class="component-block-left">
@@ -39,7 +39,17 @@
                             </Dropzone>
                         </div>
                     </div>
-                    <div class="col-10" >
+                    <div class="col-1" >
+                        @for (var i = 0; i < Blocks; i++)
+                        {
+                            <div class="d-flex align-items-center ms-auto" 
+                                style="background-color: #0984e3; height:@(Math.Round(Height*0.86)/Blocks - 14)px;width: 50%">
+                                <div class="fw-bold text-white text-center w-100">T0 @i</div>
+                            </div>
+                            <div class="py-2"></div>
+                        }
+                    </div>
+                    <div class="col-9" >
                         <div class="" id="widthBlock">
                             @for (var i = 0; i < Blocks; i++)
                             {
@@ -49,7 +59,16 @@
                             }
                         </div>
                     </div>
-                    
+                    <div class="col-1" >
+                        @for (var i = 0; i < Blocks; i++)
+                        {
+
+                           <div class="d-flex">
+                                <img src="/assets/img.png" height='@(Math.Round(Height*0.86)/Blocks - 14)'>
+                            </div>
+                            <div class="py-2"></div>
+                        }
+                    </div>
                 </div>
 			</div>
 			<div class="d-flex align-items-center ps-5 mb-1" style="height: @(Math.Round(Height*0.07).ToString())px">

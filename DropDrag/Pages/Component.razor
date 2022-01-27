@@ -4,14 +4,11 @@
     <div class="d-flex align-items-center">
         <span class="bg-success" style="width: 5px; height: 40px;"></span>
         <div class="ms-5">
-            <span class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">@item.Title</span>
-            <div class="fw-bold text-muted">@item.Description</div>
+            <span class="fs-8 fw-bolder text-gray-900 text-hover-primary mb-2 text-small">@item.Title</span>
+            <div class="fs-7 fw-bold text-muted">@item.Description</div>
         </div>
     </div>
 </div>
-
-
-
 
 @code {
     [Parameter] public TodoItem item { get; set; }

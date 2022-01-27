@@ -5,8 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Pages\Component.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="blazor-dragdrop" Version="2.3.0" />
     <PackageReference Include="Blazored.Modal" Version="5.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="Pages\Component.razor.css" />
   </ItemGroup>
 
 </Project>
