@@ -32,13 +32,30 @@
 @for (int row = 0; row < Rows; row++)
 {
     <div class="d-flex">
-
+        <div class="d-flex align-items-center me-2" style="background-color: #0984e3">
+            <div style=" color:#fff; font-weight:bold;text-align:center; width:50px">T0 @BlockId</div>
+        </div>
+        <div style="display:flex; align-items:center; justify-content: center; width:100px">@BlockId@row</div>
         @for (int col = 0; col < matrix[row].Count; col++)
         {
             @if (matrix[row][col].Category == 1)
             {
-                <div class="cells category1 d-flex justify-content-center align-items-center">
-                    <Dropzone Class="cell-div  box-size  text-center" Items="matrix[row][col].TodoItemList" MaxItems="1">
+                <div class="cells category1 d-flex justify-content-center align-items-center position-relative">
+                    @if (matrix[row][col].TodoItemList.Count<=0)
+                    {
+                        <div style="position:absolute; top: 50%, right: 50%;">
+                            @("T" + BlockId) @row @col
+                        </div>
+                    }
+                    
+                    <Dropzone Class="cell-div  box-size  text-center" 
+                        TItem="TodoItem"
+                        
+                        OnItemDrop="@((p)=>OnDropRejected(p))"
+                        OnItemDropRejected="@((p)=>OnDropRejected(p))"
+                        Items="matrix[row][col].TodoItemList" 
+                        MaxItems="1">
+                        
                         <Cell item="@context" BlockId="@("T" + BlockId)" RowId = "@row" ColId="@col"></Cell>
                     </Dropzone>
                 </div>
@@ -46,14 +63,26 @@
             }
             else
             {
-                <div class="cells category2 d-flex justify-content-center align-items-center">
-                    <Dropzone Class="cell-div  box-size  text-center" Items="matrix[row][col].TodoItemList" MaxItems="1">
+                <div class="cells category2 d-flex justify-content-center align-items-center  position-relative">
+                    @if (matrix[row][col].TodoItemList.Count<=0)
+                    {
+                        <div style="position:absolute; top: 50%, right: 50%;">
+                            @("T" + BlockId) @row @col
+                        </div>
+                    }
+                    <Dropzone Class="cell-div  box-size  text-center" 
+                        Items="matrix[row][col].TodoItemList" 
+                        TItem="TodoItem"
+                        OnItemDrop="@((p)=>OnDropRejected(p))"
+                        OnItemDropRejected="@((p)=>OnDropRejected(p))"
+                        MaxItems="1">
                         <Cell item="@context" BlockId="@("T" + BlockId)" RowId = "@row" ColId="@col"></Cell>
                     </Dropzone>
                 </div>
             }
         }
-
+        <div class="d-flex align-items-center ms-1" style="width:50px;background-color: #0984e3">
+        </div>
     </div>
 }
 
@@ -89,5 +118,10 @@
             }
             matrix.Add(colListTodo);
         }
+    }
+
+    public void OnDropRejected(TodoItem item)
+    {
+        StateHasChanged();
     }
 }
