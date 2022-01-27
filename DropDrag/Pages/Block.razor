@@ -39,7 +39,7 @@
             {
                 <div class="cells category1 d-flex justify-content-center align-items-center">
                     <Dropzone Class="cell-div  box-size  text-center" Items="matrix[row][col].TodoItemList" MaxItems="1">
-                        <Cell item="@context" BlockId="@BlockId" RowId = "@row" ColId="@col"></Cell>
+                        <Cell item="@context" BlockId="@("T" + BlockId)" RowId = "@row" ColId="@col"></Cell>
                     </Dropzone>
                 </div>
 
@@ -48,7 +48,7 @@
             {
                 <div class="cells category2 d-flex justify-content-center align-items-center">
                     <Dropzone Class="cell-div  box-size  text-center" Items="matrix[row][col].TodoItemList" MaxItems="1">
-                        <Cell item="@context" BlockId="@BlockId" RowId = "@row" ColId="@col"></Cell>
+                        <Cell item="@context" BlockId="@("T" + BlockId)" RowId = "@row" ColId="@col"></Cell>
                     </Dropzone>
                 </div>
             }

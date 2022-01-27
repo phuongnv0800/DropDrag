@@ -7,9 +7,9 @@
     <div class="d-flex align-items-center w-100">
         
         @*<div class=" w-100 ">*@
-            <span class="fs-5 fw-bolder text-gray-500 text-hover-primary mb-2">
+            <div class="fs-5 fw-bolder text-gray-500 text-hover-primary mb-2 text-center w-100">
                 @BlockId @RowId @ColId
-            </span>
+            </div>
             
             @*<div class="fw-bold text-muted">@item.Description</div>*@
             
@@ -20,7 +20,7 @@
 
 @code {
     [Parameter] public TodoItem item { get; set; }
-    [Parameter] public int BlockId { get; set; }
+    [Parameter] public String BlockId { get; set; }
     [Parameter] public int RowId { get; set; }
     [Parameter] public int ColId { get; set; }
 }
