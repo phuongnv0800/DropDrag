@@ -1,84 +1,197 @@
 ﻿@using DropDrag.Data
 
 <style>
-    .T-box{
+    .T-box {
         height: @((Math.Round((Height*0.86)/Blocks) - 13).ToString())px;
         width: auto;
+    }
+
+    .border-3px {
+        border: 1px #485460 solid;
+        border-radius: 3px;
+    }
+
+    .border-1 {
+        border: 0.1px #485460 solid;
     }
 </style>
 
 @inject IJSRuntime JsRuntime
-<div class="modal fade show" id="kt_modal_new_target" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
-	<div class="modal-fullscreen modal-dialog modal-dialog-centered mw-100  " style="height: 100% !important;">
-		<div class="modal-content rounded h-100" id="sizeModal">
-			<div class="modal-header border-0 justify-content-between" style="height: @(Math.Round(Height*0.07).ToString())px">
-                <div>
-                    <h4 class="fw-bold">TAN CANG 28</h4>
-                </div>
-				<!--begin::Close-->
-				<div class="btn btn-sm btn-icon btn-active-color-primary" @onclick="Cancel" data-bs-dismiss="modal">
-					<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-					<span class="svg-icon svg-icon-1">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-							<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black"></rect>
-							<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black"></rect>
-						</svg>
-					</span>
-					<!--end::Svg Icon-->
-				</div>
-				<!--end::Close-->
-			</div>
-			<div class="modal-body px-10 pt-0 pb-0">
-				<div class="row">
-                    <div class="col-1">
-                        <div class="scroll-y " style="height: @(Math.Round(Height*0.86).ToString())px">
-                            <Dropzone Items="MyFirstList" Class="">
-                                <div class="component-block-left">
-                                    <Component item="@context"></Component>
-                                </div>
-                            </Dropzone>
+<div class="modal fade show" id="kt_modal_new_target" tabindex="-1" style="display: block;background-color: #78e08f" aria-modal="true" role="dialog">
+    <div class="modal-fullscreen modal-dialog modal-dialog-centered mw-100  " style="height: 100% !important;">
+        <div class="modal-content rounded h-100" id="sizeModal" style="background-color: #78e08f">
+            <div class="modal-header border-0 justify-content-between border" style="height: @(Math.Round(Height*0.07).ToString())px;background-color: #78e08f">
+                <div class="w-100 d-flex me-5">
+                    <div class="border-3px px-5 py-2 me-5 w-250px bg-white">
+                        <h5 class="fw-bolder">Lập sơ đồ hàng</h5>
+                    </div>
+                    <div class="border-3px px-5 py-2 me-5 w-300px bg-white">
+                        <div class="d-flex algin-items-center">
+                            <h5 class="fw-bolder me-2">Số hiệu:</h5>
+                            <div class="form-check form-check-custom form-check-solid me-2 form-check-sm">
+                                <input class="form-check-input" type="radio" name="sohieu" id="1" value="1" checked="checked" />
+                                <label class="form-check-label" for="1">
+                                    1
+                                </label>
+                            </div>
+                            <div class="form-check form-check-custom form-check-solid me-2 form-check-sm">
+                                <input class="form-check-input" type="radio" name="sohieu" id="2" value="2" />
+                                <label class="form-check-label" for="2">
+                                    2
+                                </label>
+                            </div>
+                            <div class="form-check form-check-custom form-check-solid me-2 form-check-sm">
+                                <input class="form-check-input" type="radio" name="sohieu" id="3" value="3" />
+                                <label class="form-check-label" for="3">
+                                    3
+                                </label>
+                            </div>
+                            <div class="form-check form-check-custom form-check-solid me-2 form-check-sm">
+                                <input class="form-check-input" type="radio" name="sohieu" id="4" value="4" />
+                                <label class="form-check-label" for="4">
+                                    4
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="border-3px px-5 py-2 me-5 w-300px bg-white">
+                        <div class="d-flex algin-items-center">
+                            <h5 class="fw-bolder me-2">Cỡ chữ:</h5>
+                            <div class="form-check form-check-custom form-check-solid me-2 form-check-sm">
+                                <input class="form-check-input" type="radio" name="cochu" id="1" value="1" checked="checked" />
+                                <label class="form-check-label" for="1">
+                                    1
+                                </label>
+                            </div>
+                            <div class="form-check form-check-custom form-check-solid me-2 form-check-sm">
+                                <input class="form-check-input" type="radio" name="cochu" id="2" value="2" />
+                                <label class="form-check-label" for="2">
+                                    2
+                                </label>
+                            </div>
+                            <div class="form-check form-check-custom form-check-solid me-2 form-check-sm">
+                                <input class="form-check-input" type="radio" name="cochu" id="3" value="3" />
+                                <label class="form-check-label" for="3">
+                                    3
+                                </label>
+                            </div>
+                            <div class="form-check form-check-custom form-check-solid me-2 form-check-sm">
+                                <input class="form-check-input" type="radio" name="cochu" id="4" value="4" />
+                                <label class="form-check-label" for="4">
+                                    4
+                                </label>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-1" >
-                        @for (var i = 0; i < Blocks; i++)
-                        {
-                            <div class="d-flex align-items-center ms-auto" 
-                                style="background-color: #0984e3; height:@(Math.Round(Height*0.86)/Blocks - 14)px;width: 50%">
-                                <div class="fw-bold text-white text-center w-100">T0 @i</div>
-                            </div>
-                            <div class="py-2"></div>
-                        }
+                    <div class="border-3px px-5 py-2 w-50 me-5 bg-white">
+                        <h5 class="fw-bolder">DRYU9604745|DV|8.77</h5>
                     </div>
-                    <div class="col-9" >
-                        <div class="" id="widthBlock">
+                </div>
+
+                <div>
+                    <div class="d-flex align-items-center ps-5 mb-1">
+                        <button type="submit" @onclick="Cancel" id="kt_modal_new_target_submit" class="btn btn-sm btn-primary me-3">
+                            <span class="indicator-label">Submit</span>
+                        </button>
+                        <button type="reset" @onclick="SubmitForm" id="kt_modal_new_target_cancel" class="btn btn-sm btn-light">Cancel</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-body px-10 pt-0 pb-0">
+                <div class="row mt-2">
+                    <div class="col-10" id="widthBlock">
+                        <div class="bg-white border-3px">
                             @for (var i = 0; i < Blocks; i++)
                             {
-                                @*0.86 là 86% chiều cao của modal, 13 là 13 px của py-2(khoảng cách của mỗi block) *@
-                                <Block Rows="@Rows" Cols="@Cols" Height="@(Math.Round(Height*0.86)/Blocks - 13)" Width="@WidthBlock" BlockId="@i"></Block>
+                                <div class="d-flex align-items-center ms-auto">
+                                    <div class="d-flex align-items-center ms-auto border" style="background-color: #0984e3; height:@(Math.Round(Height*0.83)/Blocks - 14)px;">
+                                        <div class="fw-bold text-white text-center" style="width: 40px !important">T0 @i</div>
+                                    </div>
+                                    @*0.86 là 86% chiều cao của modal, 13 là 13 px của py-2(khoảng cách của mỗi block) *@
+                                    <Block Rows="@Rows" Cols="@Cols" Height="@(Math.Round(Height*0.83)/Blocks - 13)" Width="@WidthBlock" BlockId="@i"></Block>
+                                    <div class="d-flex align-items-center ms-auto" style="height:@(Math.Round(Height*0.83)/Blocks - 14)px;width: 100px !important">
+                                        <img src="/assets/img.svg" height='@(Math.Round(Height*0.83)/Blocks - 14); width: 100%;' />
+                                    </div>
+                                </div>
                                 <div class="py-2"></div>
                             }
+                            <div class="d-flex justify-content-between" style="height: 20px; padding-left: 90px; padding-right:@(WidthBlock/2 + 40)px">@*padding-left: 90px vì khoảng cách đầu là 90px*@
+                                @for(int i = 0; i< 15; i++)
+                                {
+                                    @*<div class="text-end" style="flex-grow:1; box-sizing: border-box">@(i+1)</div>*@
+                                }
+                            </div>
+                        </div>
+                        <div class="mt-1 d-flex">
+                            <div class="d-flex border-3px bg-white" style="width:300px">
+                                <div style="height: 50px; width:100px">
+                                    <div class="border text-center fw-bold" style="height:50%;background-color: #78e08f">Thường (1)</div>
+                                    <div class="border text-center fw-bold" style="height:50%;background-color: #FDA7DF">Thường (2)</div>
+                                </div>
+                                <div style="height: 50px; width:100px">
+                                    <div class="border text-center fw-bold" style="height:50%;background-color: #fff200">Đặc biệt (1)</div>
+                                    <div class="border text-center fw-bold" style="height:50%;background-color: #fa8231">Đặc biệt (2)</div>
+                                </div>
+                                <div style="height: 50px; width:100px">
+                                    <div class="border text-center fw-bold" style="height:50%;background-color: #d1d8e0">Lạnh (1)</div>
+                                    <div class="border text-center fw-bold" style="height:50%;background-color: #0fb9b1">Lạnh (2)</div>
+                                </div>
+                            </div>
+                            <div class="d-flex border-3px bg-white ms-3" style="width:100%; height:50px">
+                                <div class="border-1 w-100 h-100">
+                                    <div class="w-100 h-100 d-flex align-items-center justify-content-center fw-bolder">TT Ổn định</div>
+                                </div>
+                                <div class="border-1 w-100 h-100">
+                                    <div class="w-100 h-100 d-flex align-items-center justify-content-center fw-bolder">GoM 5.1</div>
+                                </div>
+                                <div class="border-1 w-100 h-100">
+                                    <div class="w-100 h-100 d-flex align-items-center justify-content-center fw-bolder">dA 2.3</div>
+                                </div>
+                                <div class="border-1 w-100 h-100">
+                                    <div class="w-100 h-100 d-flex align-items-center justify-content-center fw-bolder">dF 1.8</div>
+                                </div>
+                                <div class="border-1 w-100 h-100 ">
+                                    <div class="w-100 h-100 d-flex align-items-center justify-content-center fw-bolder">Trim 0.4</div>
+                                </div>
+                                <div class="border-1 w-100 h-100">
+                                    <div class="w-100 h-100 d-flex align-items-center justify-content-center fw-bolder">Heel 0.5</div>
+                                </div>
+                                <div class="border-1 w-100 h-100">
+                                    <div class="w-100 h-100 d-flex align-items-center justify-content-center fw-bolder">Chi tiết</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-1" >
-                        @for (var i = 0; i < Blocks; i++)
-                        {
-
-                           <div class="d-flex">
-                                <img src="/assets/img.png" height='@(Math.Round(Height*0.86)/Blocks - 14)'>
+                    <div class="col-2">
+                        <div class=" bg-white border-3px p-2">
+                            <div>
+                                <h5 class="text-center">
+                                    CONTAINER CHỜ XẾP
+                                </h5>
                             </div>
-                            <div class="py-2"></div>
-                        }
+                            <div class="scroll-y p-2 border-3px mb-5" style="height: @(Math.Round(Height*0.43).ToString())px">
+                                <Dropzone Items="MyFirstList" Class="">
+                                    <div class="component-block-left">
+                                        <Component item="@context"></Component>
+                                    </div>
+                                </Dropzone>
+                            </div>
+                            <div class="scroll-y p-2 border-3px" style="height: @(Math.Round(Height*0.43).ToString())px">
+                                <Dropzone Items="MyFirstList" Class="">
+                                    <div class="component-block-left">
+                                        <Component item="@context"></Component>
+                                    </div>
+                                </Dropzone>
+                            </div>
+                        </div>
                     </div>
                 </div>
-			</div>
-			<div class="d-flex align-items-center ps-5 mb-1" style="height: @(Math.Round(Height*0.07).ToString())px">
-				<button type="submit" @onclick="Cancel" id="kt_modal_new_target_submit" class="btn btn-sm btn-primary me-3">
-					<span class="indicator-label">Submit</span>
-				</button>
-				<button type="reset" @onclick="SubmitForm" id="kt_modal_new_target_cancel" class="btn btn-sm btn-light">Cancel</button>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @code {
@@ -90,14 +203,14 @@
     [Parameter]
     public int Cols { get; set; } = 8;
     [Parameter]
-    public int Blocks { get; set; } = 6;
+    public int Blocks { get; set; } = 4;
 
     public List<TodoItem> MyFirstList = new List<TodoItem>();
 
     protected override async Task OnInitializedAsync()
     {
         for (int i = 0; i < 100; i++)
-            MyFirstList.Add(new TodoItem() {Title = "Container " + (i + 1).ToString(), Description = "Mô tả" });
+            MyFirstList.Add(new TodoItem() { Title = "Container " + (i + 1).ToString(), Description = "Mô tả" });
     }
 
     public class WindowDimension
@@ -112,13 +225,17 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (firstRender)
+        {
             var dimension = await JsRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
             Height = dimension.Height;
 
             var blockDimension = await JsRuntime.InvokeAsync<WindowDimension>("getBlockDimensions");
-            WidthBlock = blockDimension.Width/Cols;
+            WidthBlock = blockDimension.Width / (Cols + 1);
             Console.WriteLine(WidthBlock);
             StateHasChanged();
+        }
+
     }
     void SubmitForm() => ModalInstance.Close(ModalResult.Ok($"Form was submitted successfully."));
 

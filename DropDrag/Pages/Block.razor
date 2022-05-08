@@ -25,14 +25,11 @@
 
     }
 </style>
-
+<div>
 @for (int row = 0; row < Rows; row++)
 {
     <div class="d-flex">
-        @*<div class="d-flex align-items-center me-2" style="background-color: #0984e3">
-            <div style=" color:#fff; font-weight:bold;text-align:center; width:50px">T0 @BlockId</div>
-        </div>*@
-        <div style="display:flex; align-items:center; justify-content: center; width:100px">@BlockId@row</div>
+        <div style="display:flex; align-items:center; justify-content: center; width:50px">@BlockId@row</div>
         @for (int col = 0; col < matrix[row].Count; col++)
         {
             @if (matrix[row][col].Category == 1)
@@ -78,6 +75,8 @@
         
     </div>
 }
+</div>
+
 
 @code {
     [Parameter] public int Rows { get; set; }
